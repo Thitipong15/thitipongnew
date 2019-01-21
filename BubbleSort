@@ -1,0 +1,70 @@
+package ThreeAlgorithm;
+
+public class BubbleSort {
+
+	private int[] element;
+	private int eSize;
+
+	public BubbleSort(int size) {
+		if (size > 0)
+			this.element = new int[size];
+		else
+			// default element.length == 10
+			this.element = new int[10];
+
+		eSize = 0;
+	}
+
+	public void insert(int e) {
+		this.element[eSize] = e;
+		eSize++;
+	}
+
+	public void show() {
+		for (int i = 0; i < eSize; i++) {
+			System.out.print(this.element[i] + " ");
+		}
+
+		System.out.println("");
+	}
+
+	public void sort() {
+		int out, in;
+
+		for (out = eSize - 1; out > 0; out--) {
+			for (in = 0; in < out; in++) {
+				if (this.element[in] > this.element[in + 1]) {
+					this.swap(in, in + 1);
+				}
+			}
+		}
+	}
+
+	private void swap(int left, int right) {
+		int temp = this.element[left];
+		this.element[left] = this.element[right];
+		this.element[right] = temp;
+	}
+
+	public static void main(String args[]) {
+		long total = 0;
+		int iter = 100;
+		int num = 1000;
+		//int[] a = new int[iter];
+		BubbleSort b = new BubbleSort(num);
+		for (int j = 0; j < num; j++) {
+			b.insert((int) (Math.random() * num));
+		}
+		for (int i = 0; i < iter; i++) {
+			long startTime = System.nanoTime();
+			b.sort();
+			long endTime = System.nanoTime();
+			total += (endTime - startTime);
+			System.out.println(
+					"StratTime : " + startTime + "  End time : " + endTime + "  Totaltime : " + (endTime - startTime));
+			System.out.println("----------------------------------------------------------------------------------");
+			long avg = total / iter;
+			System.out.print("Average time : " + avg + " ns");
+		}
+	}
+}
